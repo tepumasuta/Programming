@@ -16,5 +16,14 @@ print(intersection1(lst1, lst2), end='\n\n')
 
 # 2
 print('Вариант 2')
-intersection2 = lambda list1, list2: (None, True)[bool(set(list1) & set(list2))]
+def intersection2(list1, list2):
+	for i in list1:
+		if i in list2:
+			return True
 print(intersection2(lst1, lst2), end='\n\n')
+
+
+# 3
+print('Вариант 3')
+intersection3 = lambda list1, list2: (None, True)[bool(set(list1) & set(list2))]
+print(intersection3(lst1, lst2), end='\n\n')

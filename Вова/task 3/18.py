@@ -32,14 +32,13 @@ perms = permutations(lst)
 print(perms, end='\n\n')
 
 # 3
-# print('Вариант 3')
-# def removed_list(lst, item):
-# 	new_lst = lst.copy()
-# 	new_lst.remove(item)
-# 	return new_lst
+print('Вариант 3')
+def removed_list(lst, item):
+	new_lst = lst.copy()
+	new_lst.remove(item)
+	return new_lst
 
-# repeated_map = lambda lst, now=tuple(): list(map(lambda x: repeated_map(removed_list(lst), now + (x,)), lst)) if not lst else now
+repeated_map = lambda lst, now=tuple(): list(map(lambda x: repeated_map(removed_list(lst, x), now + (x,)), lst)) if lst else now
 
-
-# perms = repeated_map(lst)
-# print(perms)
+perms = list(repeated_map(lst))
+print(perms)
