@@ -2067,7 +2067,7 @@ my_str = my_str.replace('mur', 'bur', 1)  # 'burmurian'
 
 Остальное мы рассмотрим в отдельной теме
 
-
+	Генераторы списка(list comprehension)
 
 
 
