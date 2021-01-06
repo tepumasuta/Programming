@@ -2594,6 +2594,208 @@ print(wdays5)
 days = [d + 1 for d in range(31) if d % 7 < 5]
 
 
+	Работа с модулями
+1. Способы подключить модуль:
+
+Вариант 1
+import название
+
+Вариант 2
+from название import *
+
+Вариант 3
+from название import название1, название2, ...
+
+Вариант 4
+import название as новое_название
+
+Вариант 5
+from название import название1 as новое_название1, название2 as новое_название2, ...
+
+В чём разница:
+1. Когда мы подключаем модуль с помощью import мы не вываливаем всё пространство имён в программу. Чтобы обратиться к его содержимому нужно будет использовать следующую схему:
+название.что_то
+
+2. Когда мы используем from, то мы вываливаем то, что нам нужно из модуля прямо в программу. Если так делать много, образуется свалка в единой программе. В данном слцчае мы сможем обращаться к содержимому модулю просто:
+что_то
+
+
+
+	Модуль collections
+Модуль, предоставляющий ещё коллекции
+
+	Counter
+Словаре-подобная коллекция. Содержит неизменяемые элементы в виде элемент: колличество
+
+Как создать:
+1. На основе другой коллекции:
+import collections
+counter = collections.Counter(collection)  # collection  --  коллекция, содержащая неизменяемые элементы
+
+2. Заполнив пустой Counter:
+import collections
+c = collections.Counter()
+for word in ['spam', 'egg', 'spam', 'counter', 'counter', 'counter']:
+    c[word] += 1
+
+3. Инициализировав Counter:
+import collections
+c = collections.Counter(a=4, b=2, c=0, d=-2)
+
+Что можно делать с коллекцией:
+1. Функция elements()  --  возвращает список элементов в лексикографическом порядке
+from collections import Counter
+c = Counter(a=4, b=2, c=0, d=-2)
+list(c.elements())  # ['a', 'a', 'a', 'a', 'b', 'b']
+
+2. Функция most_common([n])  --  возвращает n наиболее часто встречающихся элементов, в порядке убывания встречаемости. Если n не указано, возвращаются все элементы
+from collections import Counter
+Counter('abracadabra').most_common(3)  # [('a', 5), ('r', 2), ('b', 2)]
+
+3. Функция subtract([iterable-or-mapping])  --  вычитание
+from collections import Collections
+
+c = Counter(a=4, b=2, c=0, d=-2)
+d = Counter(a=1, b=2, c=3, d=4)
+c.subtract(d)  # Counter({'a': 3, 'b': 0, 'c': -3, 'd': -6})
+
+Наиболее часто употребляемые шаблоны для работы с Counter:
+
+sum(c.values()) - общее количество
+c.clear() - очистить счётчик
+list(c) - список уникальных элементов
+set(c) - преобразовать в множество
+dict(c) - преобразовать в словарь
+c.most_common()[:-n:-1] - n наименее часто встречающихся элементов
+c += Counter() - удалить элементы, встречающиеся менее одного раза
+
+Counter также поддерживает сложение, вычитание, пересечение и объединение:
+from collections import Counter
+
+c = Counter(a=3, b=1)
+d = Counter(a=1, b=2)
+c + d  # Counter({'a': 4, 'b': 3})
+c - d  # Counter({'a': 2})
+c & d  # Counter({'a': 1, 'b': 1})
+c | d  # Counter({'a': 3, 'b': 2})
+
+Нахрена:
+Без понятия. В python обожают синтаксический сахар Но в некоторых задачах очень уменьшает количество кода. Например даётся текст и нужно вывести самые частовстречающиеся слова:
+
+text = ...
+for old_char in '.', ',', '!', '?', ' "', '" ', " '", "' ":
+	text = text.replace(old_char + " ", ' ')
+for old_char in ' "', '\n', " '":
+	text = text.replace(old_char, ' ')
+
+words = Counter(map(lambda x: x.lower(), text.split(' ')))
+
+print(words.most_common(5))
+
+А ведь без Counter-а пришлось бы переписать код следующим образом:
+
+text = ...
+
+for old_char in '.', ',', '!', '?', ' "', '" ', " '", "' ":
+	text = text.replace(old_char + " ", ' ')
+for old_char in ' "', '\n', " '":
+	text = text.replace(old_char, ' ')
+
+words = Counter(map(lambda x: x.lower(), text.split(' ')))
+
+print(words.most_common(5))
+
+
+for old_char in '.', ',', '!', '?':
+	text = text.replace(old_char, '')
+
+words = list(map(lambda x: x.lower(), text.split(' ')))
+just_words = set(words)
+count_word = []
+
+for word in just_words:
+	count_word.append((words.count(word), word))
+
+count_word.sort(reverse=True)
+
+print(list(map(lambda x: tuple(reversed(x)), count_word[:5])))
+
+Работающий код в папке full code в папке Counter Examples файле example1.py
+
+
+	deque
+collections.deque(iterable, [maxlen]) - создаёт очередь из итерируемого объекта с максимальной длиной maxlen. Очереди очень похожи на списки, за исключением того, что добавлять и удалять элементы можно либо справа, либо слева
+
+Методы, определённые в deque:
+
+1. append(x) - добавляет x в конец
+
+2. appendleft(x) - добавляет x в начало
+
+3. clear() - очищает очередь
+
+4. count(x) - количество элементов, равных x
+
+5. extend(iterable) - добавляет в конец все элементы iterable
+
+6. extendleft(iterable) - добавляет в начало все элементы iterable (начиная с последнего элемента iterable)
+
+7. pop() - удаляет и возвращает последний элемент очереди
+
+8. popleft() - удаляет и возвращает первый элемент очереди
+
+9 remove(value) - удаляет первое вхождение value
+
+10. reverse() - разворачивает очередь
+
+11. rotate(n) - последовательно переносит n элементов из конца в начало (если n отрицательно, то с начала в конец)
+
+	defaultdict
+defaultdict ничем не отличается от обычного словаря за исключением того, что по умолчанию всегда вызывается функция, возвращающая значение:
+
+import collections
+defdict = collections.defaultdict(list)
+print(defdict)  # defaultdict(<class 'list'>, {})
+for i in range(5):
+    defdict[i].append(i)
+
+print(defdict)  # defaultdict(<class 'list'>, {0: [0], 1: [1], 2: [2], 3: [3], 4: [4]})
+
+То есть он для каждого элемента применил функцию list, перед тем, как добавлять его в словарь
+
+	OrderedDict
+OrderedDict - ещё один похожий на словарь объект, но он помнит порядок, в котором ему были даны ключи
+
+Методы:
+
+1. popitem(last=True) - удаляет последний элемент если last=True, и первый, если last=False.
+
+2. move_to_end(key, last=True) - добавляет ключ в конец если last=True, и в начало, если last=False.
+
+d = {'banana': 3, 'apple':4, 'pear': 1, 'orange': 2}
+OrderedDict(sorted(d.items(), key=lambda t: t[0]))  # OrderedDict([('apple', 4), ('banana', 3), ('orange', 2), ('pear', 1)])
+OrderedDict(sorted(d.items(), key=lambda t: t[1]))  # OrderedDict([('pear', 1), ('orange', 2), ('banana', 3), ('apple', 4)])
+OrderedDict(sorted(d.items(), key=lambda t: len(t[0])))  # OrderedDict([('pear', 1), ('apple', 4), ('orange', 2), ('banana', 3)])
+
+	namedtuple
+Класс namedtuple позволяет создать тип данных, ведущий себя как кортеж, с тем дополнением, что каждому элементу присваивается имя, по которому можно в дальнейшем получать доступ:
+
+Point = namedtuple('Point', ['x', 'y'])
+p = Point(x=1, y=2)
+p  # Point(x=1, y=2)
+p.x  # 1
+p[0]  # 1
+
+	ChainMap
+ChainMap – это класс, который дает возможность объединить несколько сопоставлений вместе таким образом, чтобы они стали единым целым. Если вы обратитесь к документации, то увидите, что данный класс принимает **maps*
+
+Это значит, что ChainMap будет принимать любое количество сопоставлений или словарей и превращать их в единое обновляемое представление. Примеры лежат в full code в ChainMap Examples в example1.py и example2.py
+
+Конечно в collections ещё что-то валяется, но мы не будем этого рассматривать в данном курсе
+
+
+
+
 
 
 
