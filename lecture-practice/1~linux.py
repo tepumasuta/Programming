@@ -1,5 +1,11 @@
-a = 5
-b = 5
-print(id(a), id(b))
-a = 6
-print(id(a), id(b))
+# code here
+name = "str"
+for letter in name: 
+    print(letter)
+
+nums = 1, 2, 3
+for num in nums:
+    print(num)
+
+for _ in range(99):
+    print('Hello World')
