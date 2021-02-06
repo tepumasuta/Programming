@@ -1,0 +1,39 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+
+name: conspect
+file_extensions:
+ - conspect
+scope: text.conspect
+
+contexts:
+  main:
+    - match: ""
+      push: "Packages/Plain Text/Plain Text.sublime-syntax"
+      with_prototype:
+
+        - match: '/&html'
+          push: Packages/HTML/HTML.sublime-syntax
+          with_prototype:
+            - match: '(?=&html/)'
+              pop: true
+
+
+        - match: '/&css'
+          push: Packages/CSS/CSS.sublime-syntax
+          with_prototype:
+            - match: '(?=&css/)'
+              pop: true
+
+        - match: '/&py'
+          push: Packages/Python/Python.sublime-syntax
+          with_prototype:
+            - match: '(?=&py/)'
+              pop: true
+
+        - match: '/&sql'
+          push: Packages/SQL/SQL.sublime-syntax
+          with_prototype:
+            - match: '(?=&sql/)'
+              pop: true
