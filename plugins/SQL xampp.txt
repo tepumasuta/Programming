@@ -1,0 +1,2 @@
+Для работы с SQL тебе понадобится приложение XAMPP. Первое  --  его нужно скачать: https://www.apachefriends.org/download.html
+2. Для настройки тебе ничего не требуется. Интерфейс простой и примерно понятный. Если что Гоша Дударь в помощь: https://www.youtube.com/watch?v=lapMmGGFS7k&list=PL0lO_mIqDDFVnLvR39VpEtphQ8bPJ-xR9
